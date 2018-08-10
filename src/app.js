@@ -1,18 +1,20 @@
 import restify from 'restify';
-import packageJson from '../package.json';
+import Config from '../config';
+import Smiirl from './Smiirl.class.js';
+
+const smiirlInstance = new Smiirl();
 
 const server = restify.createServer({
-  name: packageJson.name,
-  version: packageJson.version
+  name: Config.name,
+  version: Config.version
 });
 
 server.use(restify.plugins.acceptParser(server.acceptable));
 server.use(restify.plugins.queryParser());
 server.use(restify.plugins.bodyParser());
 
-server.get('/echo/:name', (req, res, next) => {
-  res.send(req.params);
-  return next();
+server.get('/', (req, res) => {
+  smiirlInstance.getTotalSales().then(() => res.json(smiirlInstance.data));
 });
 
-server.listen(8080, () => console.log('%s listening at %s', server.name, server.url));
+server.listen(Config.port, () => console.log(`[${Config.env}] ${server.name} listening at ${server.url}`));
