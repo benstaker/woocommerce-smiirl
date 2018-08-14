@@ -1,11 +1,19 @@
 import WooCommerceAPI from "woocommerce-api";
+import moment from "moment";
 import Config from "../config";
 
+const DATE_FORMAT = 'YYYY-MM-DD';
+const DEFAULT_DATA = {
+  [Config.salesName]: null,
+  [Config.numItemsName]: 0,
+  [Config.numOrdersName]: 0,
+  [Config.salesName]: 0
+};
 const SIXTY_SECONDS_MS = 60000;
 
 export default class Smiirl {
   constructor() {
-    this.data = { [Config.noSalesName]: 0, lastUpdated: null };
+    this.data = { ...DEFAULT_DATA };
     this.nextFetch = null;
     this.wooCommerce = new WooCommerceAPI(Config.wooCommerce);
   }
@@ -23,18 +31,24 @@ export default class Smiirl {
   }
 
   fetchData() {
-    // TODO: Calculate this dynamically
-    const minDate = '2018-08-09';
-    const maxDate = '2018-08-10';
+    const currentTime = moment();
+    const minDate = currentTime.subtract(1, 'day').format(DATE_FORMAT);
+    const maxDate = currentTime.format(DATE_FORMAT);
 
     return this.wooCommerce
       .getAsync(`reports/sales?date_min=${minDate}&date_max=${maxDate}`)
       .then((result) => {
-        // TODO: Actually grab the data
-        // console.log('result: ', result);
+        try {
+          const body = JSON.parse(result.toJSON().body)[0];
 
-        this.data[Config.noSalesName] = this.data[Config.noSalesName] + 1;
-        this.data.lastUpdated = new Date(this._getCurrentTime()).toTimeString();
+          this.data[Config.lastUpdatedName] = currentTime.toISOString();
+          this.data[Config.numItemsName] = body.totals[maxDate].items;
+          this.data[Config.numOrdersName] = body.totals[maxDate].orders;
+          this.data[Config.salesName] = body.totals[maxDate].sales;
+        } catch (e) {
+          // Fall back to sending default data back
+          this.data = { ...DEFAULT_DATA };
+        }
       });
   }
 

@@ -5,7 +5,10 @@ export default {
   fetchEveryXMinutes: 15,
   name: packageJson.name,
   noCache: false,
-  noSalesName: 'noSales',
+  lastUpdatedName: 'lastUpdated',
+  numItemsName: 'numberOfItems',
+  numOrdersName: 'numberOfOrders',
+  salesName: 'sales',
   port: 8080,
   version: packageJson.version
 };

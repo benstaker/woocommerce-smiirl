@@ -24,6 +24,7 @@
     "@babel/preset-env": "^7.0.0-rc.1",
     "babel-plugin-add-module-exports": "^0.2.1",
     "cross-env": "^5.2.0",
+    "moment": "^2.22.2",
     "nodemon": "^1.18.3",
     "restify": "^7.2.1",
     "woocommerce-api": "^1.4.2"
