@@ -2,13 +2,19 @@ import WooCommerceAPI from "woocommerce-api";
 import moment from "moment";
 import Config from "../config";
 
-const DATE_FORMAT = 'YYYY-MM-DD';
-const DEFAULT_DATA = {
-  [Config.salesName]: null,
-  [Config.numItemsName]: 0,
-  [Config.numOrdersName]: 0,
-  [Config.salesName]: 0
+const parseResponse = (lastUpdated, numItems, numOrders, sales) => {
+  const data = {};
+
+  if (Config.lastUpdatedName) data[Config.lastUpdatedName] = lastUpdated;
+  if (Config.numItemsName) data[Config.numItemsName] = numItems;
+  if (Config.numOrdersName) data[Config.numOrdersName] = numOrders;
+  if (Config.salesName) data[Config.salesName] = sales;
+
+  return data;
 };
+
+const DATE_FORMAT = 'YYYY-MM-DD';
+const DEFAULT_DATA = parseResponse(null, 0, 0, 0);
 const SIXTY_SECONDS_MS = 60000;
 
 export default class Smiirl {
@@ -41,10 +47,12 @@ export default class Smiirl {
         try {
           const body = JSON.parse(result.toJSON().body)[0];
 
-          this.data[Config.lastUpdatedName] = currentTime.toISOString();
-          this.data[Config.numItemsName] = body.totals[maxDate].items;
-          this.data[Config.numOrdersName] = body.totals[maxDate].orders;
-          this.data[Config.salesName] = body.totals[maxDate].sales;
+          this.data = parseResponse(
+            currentTime.toISOString(),
+            body.totals[maxDate].items,
+            body.totals[maxDate].orders,
+            body.totals[maxDate].sales
+          );
         } catch (e) {
           // Fall back to sending default data back
           this.data = { ...DEFAULT_DATA };

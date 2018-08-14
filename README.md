@@ -11,6 +11,8 @@
     2. Add a new **port** property to override the default port if required, e.g. `port: 80`
     
 3. Modify the default config located in the **config** folder if required
+
+    1. Providing an empty value for the `*Name` properties will remove them from the response. E.g.: `lastUpdatedName: ''` 
   
 4. Start the server using  `npm run start:dev` for local testing or using `npm run start:prod` for production use
 
