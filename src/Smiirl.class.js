@@ -8,7 +8,7 @@ const parseResponse = (lastUpdated, numItems, numOrders, sales) => {
   if (Config.lastUpdatedName) data[Config.lastUpdatedName] = lastUpdated;
   if (Config.numItemsName) data[Config.numItemsName] = numItems;
   if (Config.numOrdersName) data[Config.numOrdersName] = numOrders;
-  if (Config.salesName) data[Config.salesName] = sales;
+  if (Config.salesName) data[Config.salesName] = Config.salesRoundUp ? Math.ceil(sales) : sales;
 
   return data;
 };

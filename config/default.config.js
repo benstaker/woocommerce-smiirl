@@ -9,6 +9,7 @@ export default {
   numItemsName: 'numberOfItems',
   numOrdersName: 'numberOfOrders',
   salesName: 'sales',
+  salesRoundUp: true,
   port: 8080,
   version: packageJson.version
 };
