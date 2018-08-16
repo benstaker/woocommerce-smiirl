@@ -9,6 +9,8 @@ export default {
   lastUpdatedName: 'lastUpdated',
   numItemsName: 'numberOfItems',
   numOrdersName: 'numberOfOrders',
+  wooCommerceDataName: 'wooCommerceData',
+  wooCommerceUrlName: 'wooCommerceUrl',
   salesName: 'sales',
   salesRoundUp: true,
   port: 8080,
