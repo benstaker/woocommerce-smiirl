@@ -5,6 +5,7 @@ export default {
   fetchEveryXMinutes: 15,
   name: packageJson.name,
   noCache: false,
+  dateSelectedName: 'date',
   lastUpdatedName: 'lastUpdated',
   numItemsName: 'numberOfItems',
   numOrdersName: 'numberOfOrders',
