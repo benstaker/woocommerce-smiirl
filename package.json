@@ -1,5 +1,5 @@
 {
-  "name": "smirk-smiirl",
+  "name": "woocommerce-smiirl",
   "version": "1.0.0",
   "description": "",
   "main": "src/app.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/benstaker/smirk-smiirl.git"
+    "url": "git+https://github.com/benstaker/woocommerce-smiirl.git"
   },
   "author": "Ben Staker <ben@benstaker.com> (http://benstaker.com)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/benstaker/smirk-smiirl/issues"
+    "url": "https://github.com/benstaker/woocommerce-smiirl/issues"
   },
-  "homepage": "https://github.com/benstaker/smirk-smiirl#readme",
+  "homepage": "https://github.com/benstaker/woocommerce-smiirl#readme",
   "dependencies": {
     "@babel/core": "^7.0.0-rc.1",
     "@babel/node": "^7.0.0-rc.1",
